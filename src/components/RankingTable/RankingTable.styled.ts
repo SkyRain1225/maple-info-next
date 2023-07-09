@@ -5,6 +5,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  .ranking_number {
+    display: flex;
+    flex-direction: column;
+  }
+
   > .left_info {
     display: flex;
     align-items: center;
@@ -44,8 +49,8 @@ export const Container = styled.div`
       > .avatar_img {
         position: absolute;
         object-fit: contain;
-        top: -3.2rem;
-        left: -2.3rem;
+        top: -2.95rem;
+        left: -2rem;
       }
     }
   }
@@ -67,21 +72,27 @@ export const Container = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.colors.lightgrey};
 
     &:nth-child(1) {
+      min-width: 170px;
       width: 170px;
     }
     &:nth-child(2) {
+      min-width: 352px;
       width: 352px;
     }
     &:nth-child(3) {
+      min-width: 200px;
       width: 200px;
     }
     &:nth-child(4) {
+      min-width: 132px;
       width: 132px;
     }
     &:nth-child(5) {
+      min-width: 197px;
       width: 197px;
     }
     &:nth-child(6) {
+      min-width: 149px;
       width: 149px;
     }
   }

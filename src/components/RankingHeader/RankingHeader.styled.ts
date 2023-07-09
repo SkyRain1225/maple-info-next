@@ -19,21 +19,27 @@ export const Container = styled.div`
     justify-content: center;
 
     &:nth-child(1) {
+      min-width: 170px;
       width: 170px;
     }
     &:nth-child(2) {
+      min-width: 352px;
       width: 352px;
     }
     &:nth-child(3) {
+      min-width: 200px;
       width: 200px;
     }
     &:nth-child(4) {
+      min-width: 132px;
       width: 132px;
     }
     &:nth-child(5) {
+      min-width: 197px;
       width: 197px;
     }
     &:nth-child(6) {
+      min-width: 149px;
       width: 149px;
     }
   }
