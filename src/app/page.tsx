@@ -1,95 +1,90 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import React, { useEffect, useState } from 'react';
+import { Footer, RankingHeader, RankingTable } from '~/components';
+import * as S from './page.styled';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '~/styles/themes';
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+interface IFetchData {
+  streamer: string;
+  nickname: string;
+  avatar: string;
+  server: string;
+  job: string;
+  level: string;
+  exp: string;
+  guild: string;
+  vote: string;
 }
+
+const Home = () => {
+  const [data, setData] = useState<IFetchData[]>([]);
+  const [expinfo, setExpInfo] = useState();
+
+  useEffect(() => {
+    const fetchExp = async () => {
+      try {
+        const response = await fetch('../.././data/exp.json');
+        const jsonData = await response.json();
+        setExpInfo(jsonData);
+      } catch (error) {
+        console.error('Error: fetching exp failed');
+      }
+    };
+    fetchExp();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch('../.././data/data.json');
+        const jsonData = await response.json();
+        const sortedData = jsonData.sort((b: IFetchData, a: IFetchData) => {
+          const levelA = parseInt(a.level.replace('Lv.', ''));
+          const levelB = parseInt(b.level.replace('Lv.', ''));
+
+          if (levelA === levelB) {
+            const expA = parseInt(a.exp.replace(/,/g, ''));
+            const expB = parseInt(b.exp.replace(/,/g, ''));
+            return expA - expB;
+          }
+
+          return levelA - levelB;
+        });
+
+        setData(sortedData);
+      } catch (error) {
+        console.error('Error: fetching data failed');
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <S.Container>
+        <RankingHeader />
+
+        {data.map((item, index) => (
+          <RankingTable
+            number={index + 1}
+            key={item.nickname}
+            streamer={item.streamer}
+            nickname={item.nickname}
+            avatar={item.avatar}
+            server={item.server}
+            job={item.job}
+            level={item.level}
+            exp={item.exp.replace(/,/g, '')}
+            guild={item.guild}
+            vote={item.vote}
+            expinfo={expinfo}
+          />
+        ))}
+        <Footer />
+      </S.Container>
+    </ThemeProvider>
+  );
+};
+
+export default Home;
