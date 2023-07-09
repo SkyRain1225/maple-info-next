@@ -1,34 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align=center><h1>메이플 스트리머 랭킹</h1></div>
+<div align=center>스트리머분들의 메이플스토리 하이퍼 버닝 캐릭터 레벨 랭킹을 제공합니다.</div>
 
-## Getting Started
+<br /><br /><br />
+>캐릭터 정보는 매일 오전 06:00에 갱신됩니다.
 
-First, run the development server:
+```메이플스토리 공식 홈페이지의 랭킹 기록을 가져오기 때문에 방송보다 레벨 또는 경험치가 차이날 수 있습니다.```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<br /><br /><br />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> 추가예정
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```랭킹 변동에 따른 표기```
+```스트리머 추가 및 수정 요청```
+```이미지 및 데이터 로딩 처리```
+```데이터 캐싱```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+<br /><br /><br />
 
-To learn more about Next.js, take a look at the following resources:
+> 홈페이지 사진
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![ex](https://github.com/SkyRain1225/maple-info/assets/97310823/78484039-561b-441e-8f08-e8632b4b5459)
