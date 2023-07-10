@@ -1,18 +1,19 @@
 import axios from 'axios';
 import members from '~/assets/members.json';
+import expInfo from '~/assets/exp.json';
 import { load } from 'cheerio';
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
 import dayjs from 'dayjs';
 
-interface StreamerPlayerData {
+export interface StreamerPlayerData {
   streamer: string;
   nickname: string;
   avatar?: string;
   server?: string;
   job?: string;
-  level?: string;
-  exp?: string;
+  level?: number;
+  expPercent?: number;
   guild?: string;
   vote?: string;
   rankingVariation?: number;
@@ -24,17 +25,13 @@ interface StreamerRankData {
 }
 
 export const GET = async () => {
-  const debugStartTime = new Date().getTime();
-
   const data = await getStreamersData();
-
-  console.log('duration:', new Date().getTime() - debugStartTime);
-
   return NextResponse.json(data);
 };
 
 export const getStreamersData = async () => {
-  console.log('hihi');
+  console.log('getStreamersData!');
+
   const promises = Object.entries(members).map(([streamer, nickname]) => {
     return new Promise<StreamerPlayerData>(async resolve => {
       try {
@@ -46,10 +43,11 @@ export const getStreamersData = async () => {
         const avatar = $('.search_com_chk > .left > .char_img > img').attr('src');
         const server = $('.search_com_chk > .left > dl > dt > a > img').attr('src');
         const job = $('.search_com_chk > .left > dl > dd').text();
-        const level = $('.search_com_chk > td:eq(2)').text();
-        const exp = $('.search_com_chk > td:eq(3)').text();
+        const level = +$('.search_com_chk > td:eq(2)').text().replace('Lv.', '');
+        const exp = +$('.search_com_chk > td:eq(3)').text().replaceAll(',', '');
         const guild = $('.search_com_chk > td:eq(5)').text();
         const vote = $('.search_com_chk > td:eq(4)').text();
+        const expPercent = +((exp / expInfo[level - 1]) * 100).toFixed(2);
 
         resolve({
           streamer,
@@ -58,7 +56,7 @@ export const getStreamersData = async () => {
           server,
           job,
           level,
-          exp,
+          expPercent,
           guild,
           vote,
         });
@@ -77,16 +75,11 @@ export const getStreamersData = async () => {
     if (!a.level) return 0;
     if (!b.level) return 1;
 
-    const levelA = parseInt(a.level.replace('Lv.', ''));
-    const levelB = parseInt(b.level.replace('Lv.', ''));
-
-    if (levelA === levelB) {
-      const expA = parseInt(a.exp!.replace(/,/g, ''));
-      const expB = parseInt(b.exp!.replace(/,/g, ''));
-      return expA - expB;
+    if (a.level === b.level) {
+      return a.expPercent! - b.expPercent!;
     }
 
-    return levelA - levelB;
+    return a.level - b.level;
   });
 
   const date = dayjs().format('YYYY-MM-DD');

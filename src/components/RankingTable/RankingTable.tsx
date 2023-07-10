@@ -1,23 +1,13 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 
 import * as S from './RankingTable.styled';
 import { RankingNumber } from '~/components';
+import { StreamerPlayerData } from '~/app/api/route';
 
-export interface RankingTableProps {
+export interface RankingTableProps extends StreamerPlayerData {
   number: number;
-  streamer: string;
-  nickname: string;
-  avatar: string;
-  server: string;
-  job: string;
-  level: string;
-  exp: string;
-  guild: string;
-  vote: string;
-  expinfo: any;
-  rankingVariation?: number;
 }
 
 const RankingTable = ({
@@ -28,22 +18,11 @@ const RankingTable = ({
   server,
   job,
   level,
-  exp,
   guild,
   vote,
-  expinfo,
   rankingVariation,
+  expPercent,
 }: RankingTableProps) => {
-  const [expPercentage, setExpPercentage] = useState();
-
-  useEffect(() => {
-    if (level && expinfo) {
-      const levels = parseInt(level.replace('Lv.', ''));
-      const expResult = expinfo[levels].replace(/,/g, '');
-      setExpPercentage(expResult);
-    }
-  }, [level, expinfo]);
-
   return (
     <S.Container>
       <div className="ranking_number">
@@ -72,9 +51,7 @@ const RankingTable = ({
         </div>
       </div>
       <div>{level}</div>
-      <div className="user_exp">
-        ({((parseInt(exp) / parseInt(expPercentage!)) * 100).toFixed(2)}%)
-      </div>
+      <div className="user_exp">({expPercent}%)</div>
       <div>{vote}</div>
       <div>{guild}</div>
     </S.Container>

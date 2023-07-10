@@ -2,12 +2,13 @@ import { Main } from '~/components';
 
 import { getStreamersData } from './api/route';
 
-export const revalidate = 'force-cache';
+export const dynamic = 'force-static';
+export const revalidate = 60 * 60;
 
 const Home = async () => {
-  const jsonData = await getStreamersData();
+  const data = await getStreamersData();
 
-  return <Main jsonData={jsonData} />;
+  return <Main data={data} />;
 };
 
 export default Home;
