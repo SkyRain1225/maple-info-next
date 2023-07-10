@@ -6,6 +6,7 @@ export const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: 220px;
+
   background-color: ${({ theme }) => theme.colors.darkgrey};
   margin-top: 10rem;
 
@@ -16,6 +17,7 @@ export const Container = styled.div`
     font-size: 14px;
     padding-top: 4px;
     color: #6f7684;
+    padding-left: 1rem;
     &:hover {
       color: #cfdcf6;
     }
@@ -23,7 +25,8 @@ export const Container = styled.div`
 
   > div,
   a {
-    width: 1220px;
+    max-width: 1220px;
+    width: 100%;
     text-decoration: none;
     color: inherit;
     display: flex;
