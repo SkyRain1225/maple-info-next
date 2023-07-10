@@ -35,6 +35,19 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         gap: 0.4rem;
+
+        > .user_server {
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -o-user-select: none;
+          user-select: none;
+          -webkit-user-drag: none;
+          -khtml-user-drag: none;
+          -moz-user-drag: none;
+          -o-user-drag: none;
+          user-drag: none;
+        }
       }
     }
 
@@ -54,6 +67,16 @@ export const Container = styled.div`
         object-fit: contain;
         top: -2.95rem;
         left: -2rem;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
       }
     }
 
@@ -124,6 +147,13 @@ export const Container = styled.div`
     font-weight: lighter;
     height: 126px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.lightgrey};
+
+    @media screen and (max-width: 768px) {
+      &:nth-child(2) {
+        font-size: 11px;
+      }
+      font-size: 12px;
+    }
 
     &:nth-child(1) {
       width: 14%;

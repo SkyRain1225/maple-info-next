@@ -8,7 +8,11 @@ export const Container = styled.div`
   height: 220px;
 
   background-color: ${({ theme }) => theme.colors.darkgrey};
-  margin-top: 10rem;
+  margin-top: 2rem;
+
+  @media screen and (max-width: 768px) {
+    height: 140px;
+  }
 
   > .github_info {
     display: flex;
