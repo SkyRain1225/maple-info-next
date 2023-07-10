@@ -72,7 +72,7 @@ export const getStreamersData = async () => {
   const data = await Promise.all(promises);
 
   data.sort((b, a) => {
-    if (!a.level) return 0;
+    if (!a.level) return -1;
     if (!b.level) return 1;
 
     if (a.level === b.level) {
