@@ -151,8 +151,9 @@ export const Container = styled.div`
     @media screen and (max-width: 768px) {
       &:nth-child(2) {
         font-size: 11px;
+        font-weight: thin;
       }
-      font-size: 12px;
+      font-size: 11px;
     }
 
     &:nth-child(1) {

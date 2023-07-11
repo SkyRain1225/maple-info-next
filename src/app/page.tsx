@@ -2,7 +2,6 @@ import { Main } from '~/components';
 
 import { getStreamersData } from './api/route';
 
-export const dynamic = 'force-static';
 export const revalidate = 60 * 60;
 
 const Home = async () => {

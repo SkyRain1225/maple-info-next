@@ -2,15 +2,17 @@
 
 import { Footer, RankingHeader, RankingTable } from '~/components';
 import * as S from './Main.styled';
-import { StreamerPlayerData } from '~/app/api/route';
+import { GetStreamersDataReturnValue } from '~/app/api/route';
 
 interface MainProps {
-  data: StreamerPlayerData[];
+  data: GetStreamersDataReturnValue;
 }
 
-const Main = ({ data }: MainProps) => {
+const Main = ({ data: { data, time } }: MainProps) => {
   return (
     <S.Container>
+      {time}
+
       <RankingHeader />
       {data.map((item, index) => (
         <RankingTable

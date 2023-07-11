@@ -3,8 +3,14 @@ import members from '~/assets/members.json';
 import expInfo from '~/assets/exp.json';
 import { load } from 'cheerio';
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
-import dayjs from 'dayjs';
+import { MongoClient, ServerApiVersion, WithId } from 'mongodb';
+
+import { revalidatePath } from 'next/cache';
+
+export interface GetStreamersDataReturnValue {
+  time: number;
+  data: StreamerPlayerData[];
+}
 
 export interface StreamerPlayerData {
   streamer: string;
@@ -19,17 +25,34 @@ export interface StreamerPlayerData {
   rankingVariation?: number;
 }
 
-interface StreamerRankData {
-  streamer?: string;
-  rank?: number;
+interface RankingHistory {
+  streamer: string;
+  rank: number;
+  rankingVariation: number;
 }
 
+type RankingHistoryCollectionItem = WithId<{
+  list: RankingHistory[];
+}>;
+
+const client = new MongoClient(process.env.MONGODB_CODE, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+const rankingHistoryCollection = client.db('maple-info').collection('ranking-history');
+
+export const dynamic = 'force-dynamic';
+
 export const GET = async () => {
-  const data = await getStreamersData();
-  return NextResponse.json(data);
+  revalidatePath('/');
+  return NextResponse.json({ revalidated: true, now: Date.now() });
 };
 
-export const getStreamersData = async () => {
+export const getStreamersData = async (): Promise<GetStreamersDataReturnValue> => {
   console.log('getStreamersData!');
 
   const promises = Object.entries(members).map(([streamer, nickname]) => {
@@ -82,30 +105,64 @@ export const getStreamersData = async () => {
     return a.level - b.level;
   });
 
-  const date = dayjs().format('YYYY-MM-DD');
+  // 현재 크롤링 된 데이터 기반 순위 (랭킹 변동 데이터 제외)
+  const newRankingHistoryList = data.map(({ streamer }, i) => ({ streamer, rank: i + 1 }));
 
-  const historyDate = await kv.get('history.date');
+  // 저장된 이전 순위
+  const prevData = await rankingHistoryCollection.findOne<RankingHistoryCollectionItem>();
 
-  let historyList: StreamerRankData[];
+  let prevRankingHistoryList = prevData?.list;
 
-  if (historyDate !== date) {
-    const newHistoryList = data.map(({ streamer }, i) => ({ streamer, rank: i + 1 }));
-    await kv.set('history.date', date);
-    await kv.set('history.list', newHistoryList);
+  // prev 데이터랑 new 데이터랑 비교 후 boolean 반환
+  const isEqual = prevRankingHistoryList
+    ? prevRankingHistoryList.every(
+        (value, index) => value.streamer === newRankingHistoryList[index].streamer,
+      )
+    : false;
 
-    historyList = newHistoryList;
-  } else {
-    historyList = (await kv.get('history.list')) as StreamerRankData[];
+  // 순위가 변동된 경우 모든 스트리머를 map 돌려서 해당 스트리머의 이전 랭킹 정보를 검색
+  // 만약 이전 랭킹 정보가 있다면 이전 랭킹과 현재 랭킹를 빼서 랭킹 변동 사항을 저장
+  if (!isEqual) {
+    const insertList = newRankingHistoryList.map(newItem => {
+      let rankingVariation = 0;
 
-    data.map(item => {
-      const historyItem = historyList.find(({ streamer }) => streamer === item.streamer);
-
-      if (historyItem) {
-        item.rankingVariation =
-          historyItem.rank! - data.findIndex(({ streamer }) => streamer === item.streamer) - 1;
+      if (prevRankingHistoryList) {
+        const prev = prevRankingHistoryList.find(({ streamer }) => streamer === newItem.streamer);
+        if (prev) rankingVariation = prev.rank - newItem.rank;
       }
+
+      return {
+        ...newItem,
+        rankingVariation,
+      };
     });
+
+    await rankingHistoryCollection.updateOne(
+      {
+        _id: {
+          $eq: prevData?._id,
+        },
+      },
+      {
+        list: insertList,
+      },
+      {
+        upsert: true,
+      },
+    );
+
+    prevRankingHistoryList = insertList;
   }
 
-  return data;
+  data.forEach(item => {
+    const rankingHistory = prevRankingHistoryList?.find(
+      ({ streamer }) => streamer === item.streamer,
+    );
+    item.rankingVariation = rankingHistory?.rankingVariation || 0;
+  });
+
+  return {
+    time: new Date().getTime(),
+    data,
+  };
 };
