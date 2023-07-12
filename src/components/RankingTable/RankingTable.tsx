@@ -23,6 +23,38 @@ const RankingTable = ({
   rankingVariation,
   expPercent,
 }: RankingTableProps) => {
+  if (!expPercent) {
+    return (
+      <S.Container>
+        <div className="ranking_number">
+          {number} <RankingNumber rankingVariation={rankingVariation ?? 0} />
+        </div>
+        <div className="left_info">
+          <div className="error_user_avatar">
+            {avatar ? (
+              <Image className="avatar_img" src={avatar} alt="캐릭터 BG" width={170} height={170} />
+            ) : (
+              <div />
+            )}
+          </div>
+
+          <div className="user_info">
+            <div className="streamer">{streamer}</div>
+            <div className="user_nickname">
+              <div />
+            </div>
+          </div>
+        </div>
+        <div />
+        <div className="error_notice">
+          {nickname} 캐릭터의 정보를 불러올 수 없습니다. <br />
+          닉네임이 바뀌었다면 제보해주세요.
+        </div>
+        <div />
+        <div />
+      </S.Container>
+    );
+  }
   return (
     <S.Container>
       <div className="ranking_number">

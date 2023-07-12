@@ -137,7 +137,7 @@ export const getStreamersData = async (): Promise<GetStreamersDataReturnValue> =
       };
     });
 
-    await rankingHistoryCollection.updateOne(
+    await rankingHistoryCollection.replaceOne(
       {
         _id: {
           $eq: prevData?._id,

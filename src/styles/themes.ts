@@ -8,6 +8,7 @@ export const colors = {
   lightgrey: '#e7e7e7',
   darkgrey: '#2f3238',
   whitegrey: '#f3f3f3',
+  red: '#da4949',
 };
 
 export const theme = {

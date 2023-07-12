@@ -6,10 +6,55 @@ export const Container = styled.div`
   justify-content: center;
   max-width: 1200px;
   width: 100%;
+
+  .error_user_avatar {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: ${({ theme }) => theme.colors.lightgrey};
+
+    @media screen and (max-width: 768px) {
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      min-width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: ${({ theme }) => theme.colors.lightgrey};
+    }
+  }
+
+  .error_notice {
+    color: ${({ theme }) => theme.colors.red};
+    font-size: 0.9rem;
+    text-align: center;
+    word-spacing: 0.1rem;
+    line-height: 1.3rem;
+
+    @media screen and (max-width: 768px) {
+      font-size: 0.68rem;
+      line-height: 1rem;
+    }
+  }
+
   .ranking_number {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .error_user_nickname {
+    display: flex;
+    align-items: center;
   }
 
   > .left_info {
