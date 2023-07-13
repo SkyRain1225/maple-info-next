@@ -23,7 +23,7 @@ const RankingTable = ({
   rankingVariation,
   expPercent,
 }: RankingTableProps) => {
-  if (!expPercent) {
+  if (!job) {
     return (
       <S.Container>
         <div className="ranking_number">

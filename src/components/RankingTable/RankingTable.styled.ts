@@ -19,6 +19,12 @@ export const Container = styled.div`
     overflow: hidden;
     background-color: ${({ theme }) => theme.colors.lightgrey};
 
+    > .avatar_img {
+      transform: translate(-50%, -50%);
+      top: 49%;
+      left: 53%;
+    }
+
     @media screen and (max-width: 768px) {
       display: flex;
       position: relative;
@@ -50,6 +56,10 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    @media screen and (max-width: 768px) {
+      gap: 0.6rem;
+    }
   }
 
   .error_user_nickname {

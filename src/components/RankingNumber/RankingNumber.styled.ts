@@ -15,4 +15,10 @@ export const Container = styled.div`
   p {
     padding-top: 2px;
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 0px 12px 0px 12px;
+    height: 18px;
+    font-size: 10.5px;
+  }
 `;

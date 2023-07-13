@@ -1,6 +1,6 @@
 'use client';
 
-import { Footer, RankingHeader, RankingTable } from '~/components';
+import { Footer, RankingHeader, RankingTable, RefreshButton } from '~/components';
 import * as S from './Main.styled';
 import { GetStreamersDataReturnValue } from '~/app/api/route';
 
@@ -11,7 +11,7 @@ interface MainProps {
 const Main = ({ data: { data, time } }: MainProps) => {
   return (
     <S.Container>
-      {time}
+      <RefreshButton time={time} />
 
       <RankingHeader />
       {data.map((item, index) => (
