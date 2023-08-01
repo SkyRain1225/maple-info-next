@@ -2,17 +2,14 @@
 import React from 'react';
 
 import * as S from './RefreshButton.styled';
+import dayjs from 'dayjs';
+import { getStreamersData } from '~/app/api/route';
 
 const RefreshButton = ({ time }: { time: number }) => {
-  const formattedTime = new Date(time).getTime();
-  const nowTime = new Date().getTime();
+  const formattedDate = dayjs(time).format('YYYYMMDDHHmmss');
+  const nowTime = dayjs(time).format('YYYYMMDDHHmmss');
 
-  const timeDiff = new Date(nowTime - formattedTime).getSeconds();
-
-  return <S.Container>{timeDiff}</S.Container>;
+  return <S.Container onClick={getStreamersData}>정보갱신</S.Container>;
 };
-
-// nowtime - time = 계산 후 표기.
-// Button클릭시 새로고침. (1 분전) 등 표기처리.
 
 export default RefreshButton;
