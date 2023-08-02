@@ -15,9 +15,11 @@
     "cheerio": "^1.0.0-rc.12",
     "dayjs": "^1.11.9",
     "jotai": "^2.2.2",
+    "mongodb": "^5.7.0",
     "next": "13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.32.1",
     "styled-components": "^6.0.3"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "@vercel/analytics": "^1.0.1",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
     "eslint-config-prettier": "^8.8.0",

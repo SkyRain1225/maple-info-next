@@ -1,23 +1,13 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 
 import * as S from './RankingTable.styled';
 import { RankingNumber } from '~/components';
+import { StreamerPlayerData } from '~/app/api/route';
 
-export interface RankingTableProps {
+export interface RankingTableProps extends StreamerPlayerData {
   number: number;
-  streamer: string;
-  nickname: string;
-  avatar: string;
-  server: string;
-  job: string;
-  level: string;
-  exp: string;
-  guild: string;
-  vote: string;
-  expinfo: any;
-  rankingVariation?: number;
 }
 
 const RankingTable = ({
@@ -28,22 +18,43 @@ const RankingTable = ({
   server,
   job,
   level,
-  exp,
   guild,
   vote,
-  expinfo,
   rankingVariation,
+  expPercent,
 }: RankingTableProps) => {
-  const [expPercentage, setExpPercentage] = useState();
+  if (!job) {
+    return (
+      <S.Container>
+        <div className="ranking_number">
+          {number} <RankingNumber rankingVariation={rankingVariation ?? 0} />
+        </div>
+        <div className="left_info">
+          <div className="error_user_avatar">
+            {avatar ? (
+              <Image className="avatar_img" src={avatar} alt="캐릭터 BG" width={170} height={170} />
+            ) : (
+              <div />
+            )}
+          </div>
 
-  useEffect(() => {
-    if (level && expinfo) {
-      const levels = parseInt(level.replace('Lv.', ''));
-      const expResult = expinfo[levels].replace(/,/g, '');
-      setExpPercentage(expResult);
-    }
-  }, [level, expinfo]);
-
+          <div className="user_info">
+            <div className="streamer">{streamer}</div>
+            <div className="user_nickname">
+              <div />
+            </div>
+          </div>
+        </div>
+        <div />
+        <div className="error_notice">
+          {nickname} 캐릭터의 정보를 불러올 수 없습니다. <br />
+          닉네임이 바뀌었다면 제보해주세요.
+        </div>
+        <div />
+        <div />
+      </S.Container>
+    );
+  }
   return (
     <S.Container>
       <div className="ranking_number">
@@ -72,9 +83,7 @@ const RankingTable = ({
         </div>
       </div>
       <div>{level}</div>
-      <div className="user_exp">
-        ({((parseInt(exp) / parseInt(expPercentage!)) * 100).toFixed(2)}%)
-      </div>
+      <div className="user_exp">({expPercent}%)</div>
       <div>{vote}</div>
       <div>{guild}</div>
     </S.Container>

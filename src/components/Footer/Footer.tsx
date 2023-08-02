@@ -7,6 +7,9 @@ import * as S from './Footer.styled';
 const Footer = () => {
   return (
     <S.Container>
+      <div className="explain">
+        본 사이트는 스트리머들의 메이플스토리 하이퍼 버닝 캐릭터 랭킹을 지원합니다.
+      </div>
       <div className="github_info">
         <a href="https://github.com/SkyRain1225" target="_blank" rel="noopener noreferrer">
           <svg
