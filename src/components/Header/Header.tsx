@@ -44,8 +44,8 @@ const Header = ({ time }: { time: number }) => {
       <Image
         src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/logo.png"
         alt="logo"
-        width={130}
-        height={63}
+        width={120}
+        height={58}
       />
 
       <div className="right_content">

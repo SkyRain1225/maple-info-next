@@ -17,11 +17,19 @@ export const Container = styled.div`
     justify-content: center;
     align-items: flex-end;
     gap: 6px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
 
     > .update_time {
-      font-size: 13px;
+      font-size: 12px;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+
+      > .update_time {
+        font-size: 10px;
+      }
     }
   }
 `;

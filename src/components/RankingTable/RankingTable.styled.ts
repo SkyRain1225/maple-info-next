@@ -230,6 +230,7 @@ export const Container = styled.div`
       width: 12%;
     }
   }
+
   @media screen and (max-width: 768px) {
     > div {
       height: 90px;

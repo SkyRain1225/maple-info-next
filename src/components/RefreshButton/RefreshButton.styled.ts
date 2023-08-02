@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 75px;
+  width: 70px;
   border: 1px solid ${({ theme }) => theme.colors.lightgrey};
   border-radius: 0.2rem;
   padding: 3px 7px 3px 7px;
@@ -18,6 +18,11 @@ export const Container = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.colors.lightgrey};
   }
+
+  @media screen and (max-width: 768px) {
+    width: 60px;
+    padding: 3px 0px 3px 0px;
+  }
 `;
 
 export const Disabled = styled.div`
@@ -25,7 +30,7 @@ export const Disabled = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 75px;
+  width: 70px;
   border: 1px solid #c0c0c0;
   border-radius: 0.2rem;
   padding: 3px 7px 3px 7px;
@@ -37,5 +42,10 @@ export const Disabled = styled.div`
   background-color: #a6a6a6;
   &:hover {
     cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 60px;
+    padding: 3px 0px 3px 0px;
   }
 `;
