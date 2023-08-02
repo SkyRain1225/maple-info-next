@@ -1,6 +1,7 @@
 export const sizes = {};
 
 export const colors = {
+  white: '#ffffff',
   grey: '#f9f9fb',
   bluegrey: '#e6eaf3',
   blue: '#bac4d9',

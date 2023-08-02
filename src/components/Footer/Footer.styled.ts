@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 220px;
-
+  height: 80px;
   background-color: ${({ theme }) => theme.colors.darkgrey};
   margin-top: 2rem;
+  gap: 5px;
 
   @media screen and (max-width: 768px) {
-    height: 140px;
+    height: 60px;
   }
 
   > .github_info {
@@ -27,6 +28,15 @@ export const Container = styled.div`
     }
   }
 
+  > .explain {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 14px;
+    padding-top: 4px;
+    color: #6f7684;
+    padding-left: 1rem;
+  }
   > div,
   a {
     max-width: 1220px;
