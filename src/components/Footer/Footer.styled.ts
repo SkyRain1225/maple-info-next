@@ -26,6 +26,10 @@ export const Container = styled.div`
     &:hover {
       color: #cfdcf6;
     }
+
+    @media screen and (max-width: 768px) {
+      font-size: 11px;
+    }
   }
 
   > .explain {
@@ -36,6 +40,10 @@ export const Container = styled.div`
     padding-top: 4px;
     color: #6f7684;
     padding-left: 1rem;
+
+    @media screen and (max-width: 768px) {
+      font-size: 11px;
+    }
   }
   > div,
   a {
