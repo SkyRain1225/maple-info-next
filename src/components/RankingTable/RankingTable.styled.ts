@@ -53,11 +53,30 @@ export const Container = styled.div`
   }
 
   .error_notice {
+    display: flex;
+    flex-direction: column;
     color: ${({ theme }) => theme.colors.red};
     font-size: 0.9rem;
     text-align: center;
     word-spacing: 0.1rem;
     line-height: 1.3rem;
+
+    :nth-child(1) {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding-bottom: 7px;
+
+      @media screen and (max-width: 768px) {
+        font-size: 0.9rem;
+        padding-bottom: 4px;
+      }
+    }
+
+    a {
+      color: ${({ theme }) => theme.colors.darkgrey};
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
 
     @media screen and (max-width: 768px) {
       font-size: 0.68rem;
