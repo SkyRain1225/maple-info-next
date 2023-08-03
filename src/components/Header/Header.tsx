@@ -41,12 +41,16 @@ const Header = ({ time }: { time: number }) => {
 
   return (
     <S.Container>
-      <Image
-        src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/logo.png"
-        alt="logo"
-        width={120}
-        height={58}
-      />
+      <div className="left_content">
+        <Image
+          className="logo_img"
+          src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/logo.png"
+          alt="logo"
+          width={120}
+          height={58}
+        />
+        <div className="title">스트리머 하이퍼 버닝 캐릭터 랭킹</div>
+      </div>
 
       <div className="right_content">
         <RefreshButton diffTime={diffTime} />

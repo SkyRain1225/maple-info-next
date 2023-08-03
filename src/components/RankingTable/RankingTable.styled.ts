@@ -37,6 +37,19 @@ export const Container = styled.div`
       overflow: hidden;
       background-color: ${({ theme }) => theme.colors.lightgrey};
     }
+
+    @media screen and (max-width: 491px) {
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      min-width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: ${({ theme }) => theme.colors.lightgrey};
+    }
   }
 
   .error_notice {
@@ -49,6 +62,11 @@ export const Container = styled.div`
     @media screen and (max-width: 768px) {
       font-size: 0.68rem;
       line-height: 1rem;
+    }
+
+    @media screen and (max-width: 491px) {
+      font-size: 0.55rem;
+      line-height: 0.8rem;
     }
   }
 
@@ -120,8 +138,9 @@ export const Container = styled.div`
       > .avatar_img {
         position: absolute;
         object-fit: contain;
-        top: -2.95rem;
-        left: -2rem;
+        transform: translate(-50%, -50%);
+        top: 39%;
+        left: 53%;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
@@ -181,6 +200,61 @@ export const Container = styled.div`
           transform: translate(-50%, -50%);
           width: 110px;
           height: 110px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 491px) {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.3rem;
+      padding-left: 0.2rem;
+
+      > .user_info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        > .streamer {
+          display: flex;
+          font-weight: 400;
+          font-size: 0.85rem;
+          color: #343541;
+        }
+
+        > .user_nickname {
+          font-size: 0.4rem;
+          display: flex;
+          align-items: center;
+          gap: 0.1rem;
+        }
+
+        > .user_job {
+          font-size: 0.6rem;
+        }
+      }
+
+      > .user_avatar {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        min-width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: ${({ theme }) => theme.colors.lightgrey};
+
+        > .avatar_img {
+          position: absolute;
+          object-fit: contain;
+          top: 39%;
+          left: 53%;
+          transform: translate(-50%, -50%);
+          width: 80px;
+          height: 80px;
         }
       }
     }

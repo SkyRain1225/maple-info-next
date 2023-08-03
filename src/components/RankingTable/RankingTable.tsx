@@ -79,7 +79,7 @@ const RankingTable = ({
             )}
             {nickname}
           </div>
-          <div>{job}</div>
+          <div className="user_job">{job}</div>
         </div>
       </div>
       <div>{level}</div>

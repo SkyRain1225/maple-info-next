@@ -53,8 +53,6 @@ export const GET = async () => {
 };
 
 export const getStreamersData = async (): Promise<GetStreamersDataReturnValue> => {
-  console.log('getStreamersData!');
-
   const promises = Object.entries(members).map(([streamer, nickname]) => {
     return new Promise<StreamerPlayerData>(async resolve => {
       try {
