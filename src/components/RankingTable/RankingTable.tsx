@@ -47,8 +47,9 @@ const RankingTable = ({
         </div>
         <div />
         <div className="error_notice">
-          {nickname} 캐릭터의 정보를 불러올 수 없습니다. <br />
-          닉네임이 바뀌었다면 제보해주세요.
+          <div> {nickname}</div>
+          <div> 캐릭터의 정보를 불러올 수 없습니다. </div>
+          <div>닉네임이 바뀌었다면 아래를 통해 제보해주세요.</div>
         </div>
         <div />
         <div />

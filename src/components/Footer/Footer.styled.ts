@@ -12,7 +12,7 @@ export const Container = styled.div`
   gap: 5px;
 
   @media screen and (max-width: 768px) {
-    height: 60px;
+    height: 70px;
   }
 
   > .github_info {
@@ -34,12 +34,25 @@ export const Container = styled.div`
 
   > .explain {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.4rem;
     font-size: 14px;
     padding-top: 4px;
     color: #6f7684;
     padding-left: 1rem;
+    line-height: 12px;
+    @media screen and (max-width: 768px) {
+      line-height: 9px;
+    }
+
+    > div {
+      display: flex;
+    }
+
+    a {
+      color: #e3e3e3;
+    }
 
     @media screen and (max-width: 768px) {
       font-size: 11px;
